@@ -1,0 +1,18 @@
+Sample web app in Python Flask deployed with OpenShift using CRC (OpenShift Local). In app.py, in the app.run() command, host= '0.0.0.0' because it defaults to localhost, 
+  which won't work with OpenShift containers, or probably any containers. The port is up to you, by default it is 5000, if you go with this and only  
+  have 1 container running, it will default to 8080, which will cause issues. You can change that port in the Python code to 8000, or configure it in 
+  build/deployment/route configs in OpenShift. 
+  
+Commands to get it running in CRC: 
+  oc new-app <link-to-repo>        -- You will have to have a requirements.txt with your Python environment dependencies for OpenShift to run S2I
+                                   -- through new-app
+                                   -- An easy way to do this is while in your git repo, pip freeze > requirements.txt
+ 
+ Some useful OC commands: 
+  oc get builds
+  oc get pods
+  oc get services
+  
+Now just expose the service and you should be up and running. 
+
+  oc expose <service-name>
